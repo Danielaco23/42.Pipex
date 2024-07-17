@@ -4,13 +4,13 @@ RED = \033[0;31m
 NC = \033[0m
 
 NAME = pipex
+B_NAME = pipex_bonus
 
 SRC		=	main.c \
 			forker.c \
 			executioner.c \
 
 B_SRC	=	main_bonus.c \
-			here_doc_bonus.c \
 			forker.c \
 			executioner.c \
 
@@ -22,11 +22,9 @@ CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize="address"
 
 LIBFT = ./Libft/libft.a
 
-PRINT = -------------- Pipex Is Ready --------------
-
 all: $(NAME)
 	@echo "$(GREEN)--------------------------------------------$(NC)"
-	@echo "$(GREEN)$(PRINT)$(NC)"
+	@echo "$(GREEN)-------------- Pipex Is Ready --------------$(NC)"
 	@echo "$(GREEN)--------------------------------------------$(NC)"
 
 $(NAME): $(OBJ) $(LIBFT) pipex.h
@@ -34,8 +32,10 @@ $(NAME): $(OBJ) $(LIBFT) pipex.h
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)--------- Pipex Finished Compiling ---------$(NC)\n"
 
-bonus: $(LIBFT)
-	@make -s SRC="$(B_SRC)" PRINT="----------- Pipex Bonus Is Ready -----------"
+bonus: $(B_NAME)
+	@echo "$(GREEN)--------------------------------------------$(NC)"
+	@echo "$(GREEN)----------- Pipex Bonus Is Ready -----------$(NC)"
+	@echo "$(GREEN)--------------------------------------------$(NC)"
 
 $(B_NAME): $(B_OBJ) $(LIBFT)
 	@echo "$(YELLOW)---------- Compiling Pipex Bonus -----------$(NC)"

@@ -28,12 +28,12 @@ void	arr_freer(char **arr)
 	}
 }
 
-void	fd_arr_closer(int *fds, int size)
+void	fd_arr_closer(int *fds, int last)
 {
-	while (size >= 0)
+	while (last >= 0)
 	{
-		close(fds[size]);
-		size --;
+		close(fds[last]);
+		last --;
 	}
 }
 
@@ -52,9 +52,9 @@ int	forker(int *fds, char **argv, char **env, int n_com)
 		else if (pid == 0)
 			execution(fds, argv[index.index +2], env, index);
 		index.index ++;
+		fd_arr_closer(fds, (index.index * 2) - 1);
 	}
-	fd_arr_closer(fds, (n_com * 2) - 1);
-	wait(NULL);
-	wait(NULL);
+	while (index.index-- != 0)
+		wait(NULL);
 	return (0);
 }

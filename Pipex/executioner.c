@@ -93,6 +93,8 @@ static int	last_pipe(int *fds, t_index index)
 	if (dup2(pipe[1], STDIN_FILENO) == -1)
 		return (1);
 	close(pipe[1]);
+	if (index.index < index.total)
+		close(pipe[3]);
 	if (dup2(pipe[2], STDOUT_FILENO) == -1)
 		return (1);
 	close(pipe[2]);
