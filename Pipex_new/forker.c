@@ -37,25 +37,21 @@ void	fd_arr_closer(int *fds, int last)
 	}
 }
 
-int	forker(int *fds, char **argv, char **env, int n_com)
+void	forker(int *fds, char **argv, char **env, t_index *index)
 {
-	t_index	index;
 	int		pid;
 
-	index.index = 0;
-	index.total = n_com -1;
-	while (index.index < n_com)
+	while (index->i < index->n_com)
 	{
 		pid = fork();
 		if (pid < 0)
 			exit(EXIT_FAILURE);
 		else if (pid == 0)
-			execution(fds, argv[index.index +2], env, index);
-		index.index ++;
-		fd_arr_closer(fds, ((index.index) * 2) - 1);
+			execution(fds, argv[index->i +2], env, index);
+		index->i ++;
+		close(fds[(index->i * 2) - 1]);
+		close(fds[(index->i * 2) - 2]);
 	}
-	fd_arr_closer(fds, (n_com * 2) - 1);
-	while (index.index-- != 0)
+	while (index->i-- != 0)
 		wait(NULL);
-	return (0);
 }

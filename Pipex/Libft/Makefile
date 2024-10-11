@@ -30,7 +30,7 @@ B_OBJ = $(B_SRC:.c=.o)
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize="address"
+CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME) libft.h
 	@echo "$(GREEN)--------------------------------------------$(NC)"

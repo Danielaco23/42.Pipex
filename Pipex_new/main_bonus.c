@@ -42,13 +42,20 @@ static int	init_fds(int n_com, char **argv, int *fds)
 int	main(int argc, char **argv, char **env)
 {
 	int		*fds;
+	t_index	index;
 
 	if (argc < 5)
 		return (ft_putstr_fd(ARGS_ERR_1, 2), ft_putstr_fd(ARGS_ERR_2, 2), 1);
-	fds = ft_calloc((argc - 3) * 2, sizeof(int));
-	if (init_fds((argc - 3), argv, fds))
-		return (free(fds), ft_putstr_fd("Error opening fds", 2), 1);
-	forker(fds, argv, env, (argc - 3));
+	index.i = 0;
+	index.n_com = argc - 3;
+	index.total = index.n_com - 1;
+	index.fd_count = index.n_com * 2;
+	fds = ft_calloc(index.n_com * 2, sizeof(int));
+	if (!fds)
+		return (ft_putendl_fd("Malloc error.", 2), 1);
+	if (init_fds(index.n_com, argv, fds))
+		return (free(fds), ft_putendl_fd("Error opening fds", 2), 1);
+	forker(fds, argv, env, &index);
 	free(fds);
 	return (0);
 }

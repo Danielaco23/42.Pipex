@@ -17,8 +17,8 @@ B_SRC	=	main_bonus.c \
 OBJ = $(SRC:.c=.o)
 B_OBJ = $(B_SRC:.c=.o)
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize="address"
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 
 LIBFT = ./Libft/libft.a
 
